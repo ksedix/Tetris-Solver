@@ -349,5 +349,12 @@ function GameManager(){
     }
 
     aiButton.style.backgroundColor = "#e9e9ff";
-    startTurn();
+    
+    //My code
+    //this piece of code is for selecting the next piece in the beginning of the game
+    var nextPiece = window.prompt("Please select your next piece")
+    while (pieceToIndex(nextPiece) == null){
+        nextPiece = window.prompt("Invalid next piece. Please select your next piece. Valid pieces: i, j, l, z, s, o ")
+    }
+    startTurn(nextPiece);
 }

@@ -11,7 +11,7 @@ To tune, open up the Developer Console in the web browser and run the command `n
 Copyright (C) 2014 - 2017 [Yiyuan Lee](https://leeyiyuan.info)
 [MIT License](https://github.com/LeeYiyuan/tetrisai/blob/gh-pages/License.md)
 
-## How to Play
+## How to Play Mod
 
 1. Download the zip file of the project to your computer
 2. Unzip the zip file

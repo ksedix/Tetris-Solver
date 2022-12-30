@@ -16,12 +16,48 @@ function GameManager(){
         holesWeight: 0.35663,
         bumpinessWeight: 0.184483
     });
-    var workingPieces = [null, rpg.nextPiece()];
+    
+    //My code
+    //ask the user to select the starting piece
+    var startPiece = window.prompt("Please select your starting piece")
+    while (pieceToIndex(startPiece) == null){
+        startPiece = window.prompt("Invalid starting piece. Please select your start piece. Valid pieces: i, j, l, z, s, o ")
+    }
+    var workingPieces = [null, Piece.fromIndex(pieceToIndex(startPiece))];
+    
     var workingPiece = null;
     var isAiActive = true;
     var isKeyEnabled = false;
     var gravityTimer = new Timer(onGravityTimerTick, 500);
     var score = 0;
+    
+    //My code
+    //function for converting text representation of piece to an int representation of a piece. This is necessary because the function that returns a piece, "Piece.fromIndex()", takes an int as parameter
+    function pieceToIndex(piece){
+
+        if (piece == "o"){
+            return 0
+        }
+        if (piece == "j"){
+            return 1
+        }
+        if (piece == "l"){
+            return 2
+        }
+        if (piece == "z"){
+            return 3
+        }
+        if (piece == "s"){
+            return 4
+        }
+        if (piece == "t"){
+            return 5
+        }
+        if (piece == "i"){
+            return 6
+        }
+        return null
+    }
 
     // Graphics
     function intToRGBHexString(v){
@@ -120,12 +156,17 @@ function GameManager(){
     }
 
     // Process start of turn
-    function startTurn(){
+    function startTurn(piece){
         // Shift working pieces
         for(var i = 0; i < workingPieces.length - 1; i++){
             workingPieces[i] = workingPieces[i + 1];
         }
-        workingPieces[workingPieces.length - 1] = rpg.nextPiece();
+        
+        //My Code
+        //we have to provide startTurn with an argument. This is so that we can set the next piece to the piece provided in the argument to startTurn() function
+        workingPieces[workingPieces.length - 1] = Piece.fromIndex(pieceToIndex(piece))
+        //this is commented out, because it selects the next piece randomly using rpg.nextPiece()
+        //workingPieces[workingPieces.length - 1] = rpg.nextPiece();
         workingPiece = workingPieces[0];
 
         // Refresh Graphics
@@ -141,7 +182,13 @@ function GameManager(){
                     alert('Game Over!');
                     return;
                 }
-                startTurn();
+                //My code
+                //This piece of code is for selecting the next piece when ai-driven piece hits the ground
+                var nextPiece = window.prompt("Please select your next piece")
+                while (pieceToIndex(nextPiece) == null){
+                    nextPiece = window.prompt("Invalid next piece. Please select your next piece")
+                }
+                startTurn(nextPiece);
             })
         }else{
             isKeyEnabled = true;
@@ -186,7 +233,19 @@ function GameManager(){
 
         // If working piece has reached bottom, end of turn has been processed
         // and game can still continue.
-        startTurn();
+        
+        
+        
+        // If working piece has reached bottom, end of turn has been processed
+        // and game can still continue.
+
+        //My Code
+        //This piece of code is for selecting the next piece when it is manual mode and the piece hit the ground
+        var nextPiece = window.prompt("Please select your next piece")
+        while (pieceToIndex(nextPiece) == null){
+            nextPiece = window.prompt("Invalid next piece. Please select your next piece")
+        }
+        startTurn(nextPiece);
     }
 
     // Process keys
@@ -204,7 +263,13 @@ function GameManager(){
                         alert('Game Over!');
                         return;
                     }
-                    startTurn();
+                    //My code
+                    //This is for selecting the next piece when the piece has hit the ground after user pressed space bar(instant descend)
+                    var nextPiece = window.prompt("Please select your next piece")
+                    while (pieceToIndex(nextPiece) == null){
+                        nextPiece = window.prompt("Invalid next piece. Please select your next piece")
+                    }
+                    startTurn(nextPiece);
                 });
                 break;
             case 40: // down
@@ -245,7 +310,13 @@ function GameManager(){
                     alert('Game Over!');
                     return;
                 }
-                startTurn();
+            //My code
+            //this piece of code is for selecting the next piece when ai was enabled and the ai-driven piece hit the ground
+            var nextPiece = window.prompt("Please select your next piece")
+            while (pieceToIndex(nextPiece) == null){
+            nextPiece = window.prompt("Invalid next piece. Please select your next piece")
+            }
+            startTurn(nextPiece);
             });
         }
     }
@@ -255,12 +326,26 @@ function GameManager(){
         cancelWorkingPieceDropAnimation();
         grid = new Grid(22, 10);
         rpg = new RandomPieceGenerator();
-        workingPieces = [null, rpg.nextPiece()];
+        
+        //My code
+        //this piece of code is for selecting the first piece when the game was reset
+        var firstPiece = window.prompt("Please select your first piece (Game was reset)")
+        while (pieceToIndex(firstPiece) == null){
+            firstPiece = window.prompt("Invalid first piece. Please select your first piece")
+        }
+        workingPieces = [null, Piece.fromIndex(pieceToIndex(firstPiece))];
         workingPiece = null;
         score = 0;
         isKeyEnabled = true;
         updateScoreContainer();
-        startTurn();
+        
+        //My code
+        //this piece of code is for selecting the next piece when the game was reset
+        var nextPiece = window.prompt("Please select your next piece")
+        while (pieceToIndex(nextPiece) == null){
+            nextPiece = window.prompt("Invalid next piece. Please select your next piece")
+        }
+        startTurn(nextPiece);
     }
 
     aiButton.style.backgroundColor = "#e9e9ff";

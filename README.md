@@ -11,6 +11,12 @@ To tune, open up the Developer Console in the web browser and run the command `n
 Copyright (C) 2014 - 2017 [Yiyuan Lee](https://leeyiyuan.info)
 [MIT License](https://github.com/LeeYiyuan/tetrisai/blob/gh-pages/License.md)
 
+## How to Play
+
+1. Download the zip file of the project to your computer
+2. Unzip the zip file
+3. Open index.html and enjoy the game
+
 ## Story behind the Mod
 
 I was trying to win free fuel from the ingo app by getting a highscore on their tetris game. As such, I needed a way to find a tetris solver which was not as easy as you would think. You would think that because tetris is a popular game, it would be easy to find a tetris solver online. But it was not. However, after a lot of searching, I finally found a tetris solver that worked perfectly, created by Lee Yiyuan. The only problem was that this tetris solver generated all of the pieces randomly that it solved for. I needed to be able to tell the tetris solver which piece it should solve for. This was because the tetris solver needed to solve the pieces that were being displayed in the tetris game on ingo phone app. Below is a screenshot of the tetris game on the ingo phone app.    
